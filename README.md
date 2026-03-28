@@ -552,3 +552,21 @@ www-data
 </pre>
 <pre><u style="text-decoration-style:solid"><A5>¡¡FELICIDADES YA LOGRASTE EXPLOTAR LA VULNERABILIDAD!!</A5></u> 
 </pre>
+
+<h4>Fase 4. Análisis con OWASP ZAP</h4>
+
+Inicia OWASP ZAP en Kali:
+Si no está instalado, se puede hacer con:
+sudo apt install zaproxy
+
+Ábrelo desde el menú de aplicaciones o con:
+zaproxy
+
+Configura el objetivo:
+En la pestaña “Quick Start”, ingresa http://[IP_Metasploitable] y haz clic en “Attack”.
+
+<img width="1228" height="743" alt="image" src="https://github.com/user-attachments/assets/19de8f0b-1d6d-4d5d-9283-a74f3c15c961" />
+
+Esta pantalla se obtuvo directamente del software que se está utilizando en la computadora, para fines educativos.
+
+Analiza las alertas generadas (por ejemplo, XSS, SQLi y CSRF).
