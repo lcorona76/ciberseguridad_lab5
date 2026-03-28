@@ -5,74 +5,65 @@
     no nos hacemos responsables por el mal uso que se haga de ella.
 </p>
 
-<section style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+<h2 style="color: #1a4d8f;">Simulación de ataque a una aplicación web vulnerable</h2>
 
-    <h2 style="color: #1a4d8f;">Simulación de ataque a una aplicación web vulnerable</h2>
+<p>
+    <strong>Objetivo:</strong> identificar, analizar y explotar vulnerabilidades en una 
+    aplicación web simulada utilizando herramientas como <em>OWASP ZAP</em>, <em>Nmap</em> y 
+    <em>Metasploit</em>, aplicando los conceptos de escaneo, explotación y mitigación aprendidos en el tema.
+</p>
 
-    <p>
-        <strong>Objetivo:</strong> identificar, analizar y explotar vulnerabilidades en una 
-        aplicación web simulada utilizando herramientas como <em>OWASP ZAP</em>, <em>Nmap</em> y 
-        <em>Metasploit</em>, aplicando los conceptos de escaneo, explotación y mitigación aprendidos en el tema.
-    </p>
+<h3 style="color: #1a4d8f;">Materiales necesarios</h3>
 
-    <h3 style="color: #1a4d8f;">Materiales necesarios</h3>
+<h4>Máquina virtual Metasploitable (objetivo vulnerable):</h4>
+<ul>
+    <li>
+        Rapid7. (s.f.-a). <em>Metasploitable3</em>.  
+        Recuperado de  
+        <a href="https://github.com/rapid7/metasploitable3" target="_blank">
+            https://github.com/rapid7/metasploitable3
+        </a>
+    </li>
+    <li>
+        También disponible desde SourceForge:  
+        Rapid7. (s.f.-b). <em>Metasploitable</em>.  
+        Recuperado de  
+        <a href="https://sourceforge.net/projects/metasploitable/" target="_blank">
+            https://sourceforge.net/projects/metasploitable/
+        </a>
+    </li>
+    <li>
+Tutorial recomendado:  
+        RINKU. (2023, 14 de diciembre). <em>Cómo DESCARGAR e INSTALAR METASPLOITABLE2</em>.  
+        [Archivo de video]. Recuperado de  
+        <a href="https://www.youtube.com/watch?v=gdMRiCGB5U8" target="_blank">
+            https://www.youtube.com/watch?v=gdMRiCGB5U8
+        </a>
+    </li>
+</ul>
 
-    <h4>Máquina virtual Metasploitable (objetivo vulnerable):</h4>
-    <ul>
-        <li>
-            Rapid7. (s.f.-a). <em>Metasploitable3</em>.  
-            Recuperado de  
-            <a href="https://github.com/rapid7/metasploitable3" target="_blank">
-                https://github.com/rapid7/metasploitable3
-            </a>
-        </li>
-        <li>
-            También disponible desde SourceForge:  
-            Rapid7. (s.f.-b). <em>Metasploitable</em>.  
-            Recuperado de  
-            <a href="https://sourceforge.net/projects/metasploitable/" target="_blank">
-                https://sourceforge.net/projects/metasploitable/
-            </a>
-        </li>
-        <li>
-            Tutorial recomendado:  
-            RINKU. (2023, 14 de diciembre). <em>Cómo DESCARGAR e INSTALAR METASPLOITABLE2</em>.  
-            [Archivo de video]. Recuperado de  
-            <a href="https://www.youtube.com/watch?v=gdMRiCGB5U8" target="_blank">
-                https://www.youtube.com/watch?v=gdMRiCGB5U8
-            </a>
-        </li>
-    </ul>
+<h4>Máquina virtual Kali Linux (para herramientas de ataque):</h4>
+<ul>
+    <li>
+        Kali. (s.f.). <em>The most advanced Penetration Testing Distribution</em>.  
+        Recuperado de  
+        <a href="https://www.kali.org" target="_blank">https://www.kali.org</a>
+    </li>
+</ul>
 
-    <h4>Máquina virtual Kali Linux (para herramientas de ataque):</h4>
-    <ul>
-        <li>
-            Kali. (s.f.). <em>The most advanced Penetration Testing Distribution</em>.  
-            Recuperado de  
-            <a href="https://www.kali.org" target="_blank">https://www.kali.org</a>
-        </li>
-    </ul>
+<p style="background-color:#f9f2d0; padding:10px; border-left:4px solid #d1b400;">
+    <strong>Nota:</strong> Estos enlaces son externos a Universidad Tecmilenio. Al acceder a ellos,
+    considera que debes apegarte a sus términos y condiciones.
+</p>
 
-    <p style="background-color:#f9f2d0; padding:10px; border-left:4px solid #d1b400;">
-        <strong>Nota:</strong> Estos enlaces son externos a Universidad Tecmilenio. Al acceder a ellos,
-        considera que debes apegarte a sus términos y condiciones.
-    </p>
+<p>
+    Es recomendable descargar la imagen preconfigurada para VirtualBox o VMware.  
+    Busca la sección de <strong>“Virtual Machines”</strong> y descarga la de tu preferencia.
+</p>
 
-    <p>
-        Es recomendable descargar la imagen preconfigurada para VirtualBox o VMware.  
-        Busca la sección de <strong>“Virtual Machines”</strong> y descarga la de tu preferencia.
-    </p>
+<h3 style="color: #1a4d8f;">Instrucciones detalladas</h3>
 
-    <p>
-        También necesitarás una red local configurada entre ambas máquinas 
-        (modo NAT o puente en VirtualBox/VMware).
-    </p>
-
-    <h3 style="color: #1a4d8f;">Instrucciones detalladas</h3>
-
-    <h4>Fase 1. Preparación del entorno (10 minutos)</h4>
-
-</section>
+<h4>Fase 1. Preparación del entorno (10 minutos)</h4>
 
 1.	Instalar VirtualBox (Si ya lo tienes instalado saltar este paso)
 
@@ -118,9 +109,11 @@ Una vez que termine de hacer el deploy de las máquinas virtuales ubuntu1404 y w
 ifconfig eth0 (interface 1: esta es para navegación)
 ifconfig eth1 (interface 2: segmento para pruebas de laboratorio)
 
-6. utilizando nmap para identificar los equipos activos en la red
+<h4>Fase 2. Escaneo de red con Nmap</h4>
 
-namp -sn 192.168.8.0/24 (o la red que te asigne en la interface eth1)
+Identifica la IP de Metasploitable en la red:
+
+namp -sn 192.168.115.0/24 (o la red que te asigne en la interface eth1)
 
 \\home\\kali> ifconfig
 
