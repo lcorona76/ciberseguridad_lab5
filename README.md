@@ -52,7 +52,7 @@ Tutorial recomendado:
 </ul>
 
 <p style="background-color:#f9f2d0; padding:10px; border-left:4px solid #d1b400;">
-    <strong>Nota:</strong> Estos enlaces son externos a Universidad Tecmilenio. Al acceder a ellos,
+    <strong>Nota:</strong> Estos enlaces son externos. Al acceder a ellos,
     considera que debes apegarte a sus términos y condiciones.
 </p>
 
