@@ -261,8 +261,10 @@ Service Info: Hosts:  metasploitable.localdomain, irc.Metasploitable.LAN; OSs: U
 
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 11.95 seconds
-                                                                                                                                                                                                                              
-10. Ahora de nuestro primer equipo vamos a ver si el servicio de ftp tiene algun xploit disponible
+
+<h4>Fase 3. Explotación con Metasploit</h4>
+    
+Ahora de nuestro primer equipo vamos a ver si el servicio de ftp tiene algun xploit disponible
   
 <font color="#5EBDAB">┌──(</font><font color="#277FFF"><b>kali㉿kali</b></font><font color="#5EBDAB">)-[</font><b>~/Desktop</b><font color="#5EBDAB">]</font>
 <font color="#5EBDAB">└─</font><font color="#277FFF"><b>$</b></font> <font color="#49AEE6">searchsploit</font> <font color="#5EBDAB">-w</font> ProFTPD 1.3.5
