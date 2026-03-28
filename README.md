@@ -570,3 +570,11 @@ En la pestaña “Quick Start”, ingresa http://[IP_Metasploitable] y haz clic 
 Esta pantalla se obtuvo directamente del software que se está utilizando en la computadora, para fines educativos.
 
 Analiza las alertas generadas (por ejemplo, XSS, SQLi y CSRF).
+
+Tambien pueden apoyarse del siguiente video
+https://www.youtube.com/watch?v=dHYJvLujkjg
+
+Considera explorar de forma libre, alguno de las siguientes vulnerabilidades:
+
+<img width="1052" height="859" alt="image" src="https://github.com/user-attachments/assets/f3930108-4cda-48ce-b876-b870862409a9" />
+
